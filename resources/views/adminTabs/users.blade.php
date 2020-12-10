@@ -42,7 +42,7 @@
         <form method="POST" action="/admin">
           <input type="name" name="name" class="form-control" placeholder="Имя">
           <br>
-          <input type="hidden" name="addUser" class="form-control" value="true">
+          <input type="hidden" name="actionform" class="form-control" value="2">
           <input type="email" name="email" class="form-control" placeholder="Email">
           <br>
           <input type="password" name="password" class="form-control" placeholder="Password">
