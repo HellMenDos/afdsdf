@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <!-- Custom font-->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     <link rel="stylesheet" href="fonts/stylesheet.e9dc714d.css">
     <!-- Swiper-->
     <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/varkala/1-2/vendor/swiper/css/swiper.min.css">

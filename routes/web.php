@@ -20,3 +20,5 @@ Route::get('/cart', [MainController::class, 'cart']);
 
 
 Route::get('/admin', [AdminController::class, 'index']);
+
+Route::post('/admin', [AdminController::class, 'index']);
