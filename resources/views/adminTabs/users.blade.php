@@ -39,7 +39,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="/admin">
+        <form method="POST" action="/admin" enctype="multipart/form-data">
+          {{ csrf_field() }}
           <input type="name" name="name" class="form-control" placeholder="Имя">
           <br>
           <input type="hidden" name="actionform" class="form-control" value="2">

@@ -5,7 +5,10 @@
 
 @section('content')
 
-@if ($adminUser != NULL)
+@if ($adminUser == NULL)
+@if (Session::has('error'))
+
+@endif
 
   <form method="post" action="/admin" class="admin-form-login">
     {{ csrf_field() }}
