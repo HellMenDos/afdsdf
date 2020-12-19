@@ -53,6 +53,53 @@
   </div>
 </div>
 
+<div class="modal fade" id="exampleModalproductC{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add comments</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/admin/addcomment/" enctype="multipart/form-data">
+          {{ csrf_field() }}
+          <input type="name" name="title" class="form-control" placeholder="Название">
+          <br>
+          <textarea class="form-control" name="describe" placeholder="Описание"></textarea>
+          <br>
+          <input type="hidden" name="id" class="form-control" value="{{ $product->id }}">
+           <select class="form-control" name="iduser">
+            @foreach ($users as $user)  
+          <option value="{{ $user->id}}">{{ $user->id}}</option>
+            @endforeach
+          </select>
+          <br>
+          <input type="range" min='1' max='5' class="form-control" name="raiting">
+          <br>
+          <input type="submit" name="" class="btn btn-primary btn-block">
+
+        </form>
+        @foreach ($product->comments as $comment)  
+          <div style="margin: 10px;background: #e2e2e2;padding: 20px;border-radius: 30px;">
+            <span>Title</span>
+            <p>{{$comment->title}}</p>
+            <span>Describe</span>
+            <p>{{$comment->describe}}</p>
+            <span>Raiting</span>
+            <p>{{$comment->raiting}}</p>
+            <span>Iduser</span>
+            <p>{{$comment->iduser}}</p>
+            <a href="/admin/delcomment/{{$comment->id}}" class="btn btn-danger btn-block">DELETE</a>
+          </div>
+        @endforeach
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <div class="modal fade" id="exampleModalproductP{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -74,7 +121,7 @@
 
         </form>
         <br>
-        @foreach ($photos as $photo)  
+        @foreach ($product->photos as $photo)  
           <img src="/images/product/{{ $photo->url }}" style="width: 60px; height: 60px;">
           <a class="btn btn-danger" href="/admin/delphotoproduct/{{ $photo->id }}">X</a>
         @endforeach

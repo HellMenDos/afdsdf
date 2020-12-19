@@ -7,6 +7,8 @@ use Illuminate\Routing\Controller as BaseController;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Photos;
+use App\Models\Comments;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 
@@ -31,9 +33,17 @@ class AdminController extends BaseController
 	private $url = '';
 	private $idphoto = '';
 
+	private $titleComments = '';
+	private $describeComments = '';
+	private $iduser = '';
+	private $idpro = '';
+	private $raiting = '';
+
 	private $user = '';
 	private $product = '';
 	private $photo = '';
+	private $comment = '';
+	private $cart = '';
 	/*
 		Login in admin panel 
 		This method return session
@@ -67,9 +77,8 @@ class AdminController extends BaseController
 			
 			$users = User::all();
 			$products = Product::all();
-			$photos = Photos::all();
-
-			return view('adminIndex', ['users'=> $users,'products'=>$products,'photos'=>$photos]);
+			$cart = Cart::all();
+			return view('adminIndex', ['users'=> $users,'products'=>$products,'cart'=>$cart]);
 			
 		}	   		
 
@@ -228,6 +237,15 @@ class AdminController extends BaseController
     	return redirect('/admin/');
     }
 
+    public function DelComment($id) {
+    	Comments::where('id',$id)->delete();
+    	return redirect('/admin/');
+    }
+
+    public function delCart($id) {
+    	Cart::where('id',$id)->delete();
+    	return redirect('/admin/');
+    }
 
 
     public function updateProduct(Request $request) {
@@ -299,6 +317,62 @@ class AdminController extends BaseController
     	return redirect('/admin/');
     }
 
+    public function addComment(Request $request) {
+
+    	if ($request->isMethod('post')) {
+	     	$this->titleComments = $request->input('title');
+	        $this->describeComments = $request->input('describe');
+	        $this->idpro = $request->input('id');
+	        $this->iduser = $request->input('iduser');
+	        $this->raiting = $request->input('raiting');
+
+	    			$validator = Validator::make($request->all(), 
+			   			['title' => 'required|max:255',
+	            		'describe' => 'required|min:50',
+	            		'id' => 'required',
+	            		'iduser' => 'required',
+	            		'raiting' => 'required',
+	            		],
+	            		[ 'required' => 'The field is required.2', 
+	            		'max' => 'The mimes is required.1',
+	            		]);
+
+			   		if (!$validator->fails()) {
+					   	
+					   	$this->comment = new Comments;
+					   	$this->comment->title = $this->titleComments;
+					   	$this->comment->describe = $this->describeComments;
+					   	$this->comment->iduser = $this->iduser;
+					   	$this->comment->idproduct = $this->idpro;
+					   	$this->comment->raiting = $this->raiting;
+					   	$this->comment->save();
+
+					return redirect('/admin/');
+					
+					}else {
+
+							return redirect('/admin/')->withErrors($validator, 'insertUser');		
+
+					}
+			}
+        }
+
+    public function addTocart(Request $request) {
+    	if ($request->isMethod('post')) {
+    		$this->idproduct = $request->input('id');
+    		$this->iduser = $request->input('iduser');
+
+			$this->cart = new Cart;
+			$this->cart->id_user = $this->idproduct;
+			$this->cart->id_product = $this->iduser;
+			$this->cart->save();
+			return redirect('/admin/');
+		
+
+			}
+
+    	}
+    
 
 }
 

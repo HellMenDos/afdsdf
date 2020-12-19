@@ -19,5 +19,13 @@ class Product extends Model
         'price',
     ];
 
+    public function comments() 
+    {
+        return $this->hasMany('App\Models\Comments', 'idproduct', 'id');
+    }
 
+    public function photos() 
+    {
+        return $this->hasMany('App\Models\Photos', 'idproduct', 'id');
+    }
 }

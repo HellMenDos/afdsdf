@@ -32,4 +32,14 @@ Route::post('/admin/addproduct', [AdminController::class, 'addProduct']);
 Route::post('/admin/updateproduct', [AdminController::class, 'updateProduct']);
 
 Route::post('/admin/uploadphoto', [AdminController::class, 'uploadPhoto']);
+
+Route::post('/admin/addcomment', [AdminController::class, 'addComment']);
+
 Route::get('/admin/delphotoproduct/{id}', [AdminController::class, 'DelPhoto']);
+
+Route::get('/admin/delcomment/{id}', [AdminController::class, 'DelComment']);
+Route::get('/admin/delcart/{id}', [AdminController::class, 'delCart']);
+
+Route::post('/admin/addcart/', [AdminController::class, 'addTocart']);
+
+

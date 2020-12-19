@@ -22,7 +22,7 @@
     <div class="alert alert-danger" role="alert"> {{ $errors->insertUser->first('password') }} </div> @endif @if (session()->has('error'))
     <div class="alert alert-success"> {{ session('error') }} </div> @endif @include('adminTabs.users') </div>
   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">  @include('adminTabs.product') </div>
-  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"> </div>
+  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"> @include('adminTabs.cart') </div>
 </div> 
 @endif 
 @endsection
