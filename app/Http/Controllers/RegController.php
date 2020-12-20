@@ -7,6 +7,9 @@ use App\Models\User;
 use App\Events\SendEmail
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ActivateMail;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Validator;
 
 class RegController extends BaseController
 {

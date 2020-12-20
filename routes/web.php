@@ -7,8 +7,9 @@ use App\Http\Controllers\AdminController;
 
 
 
-Route::get('/ ', [MainController::class, 'index']);
-
+Route::get('/api/getproducts/{title}', [MainController::class, 'AllProducts']);
+Route::get('/api/product/{id}', [MainController::class, 'getProduct']);
+Route::get('/api/tocart', [MainController::class, 'addTocart']);
 
 Route::get('/admin', [AdminController::class, 'index']);
 Route::post('/admin', [AdminController::class, 'index']);
