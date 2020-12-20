@@ -59,7 +59,7 @@ class AdminController extends BaseController
        		$this->user = User::where('role', 'admin')
        						->where('email',$this->email)->first();
 
-			if ($this->user != NULL) {
+			if (!empty($this->user)) {
 				if (Hash::check($this->password, $this->user->password))
 					{
  						$request->session()->put('admin', $this->user); 
@@ -122,6 +122,7 @@ class AdminController extends BaseController
 					   			$this->user->password = Hash::make($this->password);
 					   			$this->user->role = $this->role;
 					   			$this->user->avatar = $avatarName;
+					   			$this->user->email_verified_at = 1;
 					   			$this->user->save();
 
 					return redirect('/admin/');

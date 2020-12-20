@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-use App\Models\Product; 
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -21,8 +20,4 @@ class Comments extends Model
         'raiting',
     ];
 
-    public function products() 
-    {
-        return $this->hasMany('App\Models\Product', 'id', 'idproduct');
-    }
 }

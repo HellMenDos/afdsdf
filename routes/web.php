@@ -7,39 +7,36 @@ use App\Http\Controllers\AdminController;
 
 
 
-Route::get('/registr ', [RegController::class, 'registr']);
-Route::get('/login ', [RegController::class, 'login']);
-
 Route::get('/ ', [MainController::class, 'index']);
-
-Route::get('/more', [MainController::class, 'more']);
-Route::get('/detail', [MainController::class, 'detail']);
-Route::get('/profile', [MainController::class, 'profile']);
-Route::get('/cart', [MainController::class, 'cart']);
-
 
 
 Route::get('/admin', [AdminController::class, 'index']);
+Route::post('/admin', [AdminController::class, 'index']);
+
+Route::post('/admin/update', [AdminController::class, 'update']);
+Route::post('/admin/updateproduct', [AdminController::class, 'updateProduct']);
+Route::post('/admin/uploadphoto', [AdminController::class, 'uploadPhoto']);
+
+Route::post('/admin/adduser', [AdminController::class, 'addUser']);
+Route::post('/admin/addproduct', [AdminController::class, 'addProduct']);
+Route::post('/admin/addcomment', [AdminController::class, 'addComment']);
+
+Route::get('/admin/delphotoproduct/{id}', [AdminController::class, 'DelPhoto']);
+Route::get('/admin/delcomment/{id}', [AdminController::class, 'DelComment']);
+Route::get('/admin/delcart/{id}', [AdminController::class, 'delCart']);
 Route::get('/admin/del/{id}', [AdminController::class, 'delete']);
 Route::get('/admin/delproduct/{id}', [AdminController::class, 'deleteProduct']);
 
 
-Route::post('/admin', [AdminController::class, 'index']);
-
-Route::post('/admin/adduser', [AdminController::class, 'addUser']);
-Route::post('/admin/update', [AdminController::class, 'update']);
-Route::post('/admin/addproduct', [AdminController::class, 'addProduct']);
-Route::post('/admin/updateproduct', [AdminController::class, 'updateProduct']);
-
-Route::post('/admin/uploadphoto', [AdminController::class, 'uploadPhoto']);
-
-Route::post('/admin/addcomment', [AdminController::class, 'addComment']);
-
-Route::get('/admin/delphotoproduct/{id}', [AdminController::class, 'DelPhoto']);
-
-Route::get('/admin/delcomment/{id}', [AdminController::class, 'DelComment']);
-Route::get('/admin/delcart/{id}', [AdminController::class, 'delCart']);
-
 Route::post('/admin/addcart/', [AdminController::class, 'addTocart']);
+
+
+
+Route::post('/api/activate/{id}', [RegController::class, 'activate']);
+Route::post('/api/registr', [RegController::class, 'registr']);
+Route::post('/api/login', [RegController::class, 'login']);
+Route::post('/api/forget', [RegController::class, 'forget']);
+Route::post('/api/update', [RegController::class, 'update']);
+
 
 

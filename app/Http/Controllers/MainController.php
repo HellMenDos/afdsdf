@@ -15,25 +15,5 @@ class MainController extends BaseController
     }
 
 
-    public function more() {
-    	
-    	return view('more');
-    }
-
-  	public function detail() {
-    	
-    	return view('detail');
-    }
-
-    public function cart() {
-    	
-    	return view('cart');
-    }
-
-    public function profile() {
-    	
-    	return view('profile');
-    }
-
 
 }
