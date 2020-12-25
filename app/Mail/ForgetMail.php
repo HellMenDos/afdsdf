@@ -11,7 +11,7 @@ class ForgetMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $password
+    public $password;
     /**
      * Create a new message instance.
      *

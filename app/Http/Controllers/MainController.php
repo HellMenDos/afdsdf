@@ -27,7 +27,7 @@ class MainController extends BaseController
     }
 
     public function getProduct($id) {
-        $this->user = Product::with(['photos'])->find($id);
+        $this->user = Product::with(['photos','comments'])->find($id);
         return response()->json($this->user);
     }
  

@@ -2,7 +2,7 @@
 # Introduction
 
 The body of your message.
-
+{{ $password }}
 @component('mail::button', ['url' => ''])
 Button Text
 @endcomponent

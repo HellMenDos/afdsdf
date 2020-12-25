@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\User;
-use App\Events\SendEmail
+use App\Events\SendEmail;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ActivateMail;
 use Illuminate\Http\Request;
@@ -25,49 +25,38 @@ class RegController extends BaseController
 
     public function registr(Request $request) {
         if ($request->isMethod('post')) {
-            $this->name = $request->input('name');
-            $this->email = $request->input('email');
-            $this->password = $request->input('password');
-            $this->role = $request->input('role');
+            $this->name = json_decode($request->getContent(), true)['name']; 
+            $this->email = json_decode($request->getContent(), true)['email']; 
+            $this->password = json_decode($request->getContent(), true)['password']; 
+            $this->role = 'customer';
 
-                    $validator = Validator::make($request->all(), 
+                    $validator = Validator::make(json_decode($request->getContent(), true), 
                         ['name' => 'required|max:255',
                         'email' => 'required|unique:users',
                         'password' => 'required|min:6',
-                        'role' => 'required',
-                        'avatar'  => 'required|image|mimes:jpg,jpeg,png,gif|max:2048'], 
+                        'avatar'  => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif|max:2048'], 
                         [ 'required' => 'The field is required.2', 
                         'mimes' => 'The mimes is required.1',
                         'password.min' => 'The mimes is required.3'
                         ]);
 
                     if (!$validator->fails()) {
-                                /*
-                                    insert photo to folder
-                                */
-                                $image = $request->file('avatar');
-                                $avatarName = time().$image->getClientOriginalName();
-                                $image->move(public_path('images'),$avatarName);
-                                
-                                /*
-                                    insert photo to database
-                                */
+
                                 $this->user = new User;
                                 $this->user->name = $this->name;
                                 $this->user->email = $this->email;
                                 $this->user->password = Hash::make($this->password);
                                 $this->user->role = $this->role;
-                                $this->user->avatar = $avatarName;
                                 $this->user->save();
                                 
-                                Mail::to($this->email)->send(new ActivateMail($this->user));
+                                Mail::to($this->email)->send(new ActivateMail($this->user->id));
 
 
-                    return response()->json(['success'=>$this->user],204)
+                    return response()->json(['success'=>$this->user]);
                     
                     }else {
 
-                    return response()->json('error');    
+                    return response()->json(['error'=>$validator->messages()]);    
 
                     }
             }     
@@ -75,8 +64,8 @@ class RegController extends BaseController
 
     public function login(Request $request) {
         if ($request->isMethod('post')) {
-            $this->email = $request->input('email');
-            $this->password = $request->input('password');
+            $this->email = json_decode($request->getContent(), true)['email']; 
+            $this->password = json_decode($request->getContent(), true)['password']; 
 
             $this->user = User::where('role', 'customer')
                             ->where('email',$this->email)->first();
@@ -94,7 +83,7 @@ class RegController extends BaseController
                     }else {
                             $this->user = ['error'=>'No user'];
                     }
-            return response()->json($this->user, 204);     
+            return response()->json($this->user);     
             
         }
     }
@@ -102,8 +91,8 @@ class RegController extends BaseController
 
 
     public function forget(Request $request) {
-        event(new SendEmail($request->input('email')));
-        return response()->json(['success'=>'Ok'], 204);  
+        event(new SendEmail(json_decode($request->getContent(), true)['email']));
+        return response()->json(['success'=>'Ok']);  
     }
 
     public function update(Request $request) {
@@ -168,7 +157,7 @@ class RegController extends BaseController
        $this->user->email_verified_at = 1;
        $this->user->save();
 
-       return redirect()->route('login');
+       return response()->json('success');
     }
 
 }

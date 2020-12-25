@@ -26,7 +26,7 @@ class SendEmail
 
         $this->random(6);
 
-        $user = User::where('email',$this->email);
+        $user = User::where('email',$this->email)->first();;
         $user->password = Hash::make($this->string);
         $user->save();
     }

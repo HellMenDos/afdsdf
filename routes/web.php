@@ -34,7 +34,7 @@ Route::post('/admin/addcart/', [AdminController::class, 'addTocart']);
 
 
 
-Route::post('/api/activate/{id}', [RegController::class, 'activate']);
+Route::get('/api/activate/{id}', [RegController::class, 'activate']);
 Route::post('/api/registr', [RegController::class, 'registr']);
 Route::post('/api/login', [RegController::class, 'login']);
 Route::post('/api/forget', [RegController::class, 'forget']);

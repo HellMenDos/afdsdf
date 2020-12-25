@@ -29,6 +29,6 @@ class SendEmailListaner
      */
     public function handle(SendEmail $event)
     {
-        Mail::to($event->email)->send(new ForgetMail($this->string));
+        Mail::to($event->email)->send(new ForgetMail($event->string));
     }
 }

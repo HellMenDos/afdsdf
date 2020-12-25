@@ -3,7 +3,7 @@
 
 The body of your message.
 
-@component('mail::button', ['url' => '/api/activate/{{ $id }}'])
+@component('mail::button', ['url' => 'http://localhost:8000/api/activate/'.$id])
 Button Text
 @endcomponent
 
