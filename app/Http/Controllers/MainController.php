@@ -16,13 +16,18 @@ class MainController extends BaseController
     public $allusers;
     public $user;
 
-    public function AllProducts($title,Request $request) {
-    	$this->allusers = Product::where('title','like','%'.$title.'%')->get();
+    public function ProductsByTitle($title,Request $request) {
+    	$this->allusers = Product::with(['photos'])->where('title','like','%'.$title.'%')->get();
+        return response()->json($this->allusers); 
+    }
+
+    public function AllProducts(Request $request) {
+        $this->allusers = Product::with(['photos'])->get();
         return response()->json($this->allusers); 
     }
 
     public function getProduct($id) {
-        $this->user = Product::find($id);
+        $this->user = Product::with(['photos'])->find($id);
         return response()->json($this->user);
     }
  

@@ -40,7 +40,9 @@
           {{ csrf_field() }}
           <input type="name" name="title" class="form-control" placeholder="Название" value="{{ $product->title }}">
           <br>
-          <textarea value="{{ $product->describe }}" class="form-control" name="describe" placeholder="Описание"></textarea>
+          <textarea  class="form-control" name="describe" placeholder="Описание">
+            {{ $product->describe }}
+          </textarea>
           <br>
           <input type="hidden" name="id" class="form-control" value="{{ $product->id }}">
           <input type="text" name="price" class="form-control" placeholder="Цена" value="{{ $product->price }}">
