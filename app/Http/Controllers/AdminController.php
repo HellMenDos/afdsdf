@@ -364,8 +364,8 @@ class AdminController extends BaseController
     		$this->iduser = $request->input('iduser');
 
 			$this->cart = new Cart;
-			$this->cart->id_user = $this->idproduct;
-			$this->cart->id_product = $this->iduser;
+			$this->cart->id_user = $this->iduser;
+			$this->cart->id_product = $this->idproduct;
 			$this->cart->save();
 			return redirect('/admin/');
 		

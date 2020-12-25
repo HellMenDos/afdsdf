@@ -10,7 +10,9 @@ use App\Http\Controllers\AdminController;
 Route::get('/api/getproducts/{title}', [MainController::class, 'ProductsByTitle']);
 Route::get('/api/allProducts', [MainController::class, 'AllProducts']);
 Route::get('/api/product/{id}', [MainController::class, 'getProduct']);
-Route::get('/api/tocart', [MainController::class, 'addTocart']);
+Route::post('/api/tocart', [MainController::class, 'addTocart']);
+Route::get('/api/user/{id}', [MainController::class, 'getUser']);
+Route::get('/api/cart/{id}', [MainController::class, 'PrdoductCart']);
 
 Route::get('/admin', [AdminController::class, 'index']);
 Route::post('/admin', [AdminController::class, 'index']);

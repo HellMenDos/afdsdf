@@ -10,6 +10,7 @@
       <th scope="col">Id</th>
       <th scope="col">ID_user</th>
       <th scope="col">ID_product</th>
+      <th scope="col">amount</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -19,6 +20,7 @@
       <th scope="row">{{ $own->id }}</th>
       <td>{{ $own->id_user }}</td>
       <td>{{ $own->id_product }}</td>
+      <td>{{ $own->amount }}</td>
       <td><a class="btn btn-danger" href="/admin/delcart/{{ $own->id }}">X</a></td>
     </tr>
 

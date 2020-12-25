@@ -97,55 +97,27 @@ class RegController extends BaseController
 
     public function update(Request $request) {
         if ($request->isMethod('post')) {
-            $this->name = $request->input('name');
-            $this->email = $request->input('email');
-            $this->password = $request->input('password');
-            $this->role = $request->input('role');
-            $this->id = $request->input('id');
+            $this->name = json_decode($request->getContent(), true)['name'];
+            $this->email = json_decode($request->getContent(), true)['email'];
+            $this->id = json_decode($request->getContent(), true)['id'];
 
-                    $validator = Validator::make($request->all(), 
-                        ['name' => 'sometimes|nullable|max:255',
-                        'password' => 'sometimes|nullable|min:6',
-                        'avatar'  => 'image|mimes:jpg,jpeg,png,gif|max:2048'], 
-                        ['mimes' => 'The mimes is required.1',
-                        'password.min' => 'The mimes is required.3'
-                        ]);
+                    $validator = Validator::make(json_decode($request->getContent(), true), 
+                        ['name' => 'sometimes|nullable|max:255'],[]);
 
                     if (!$validator->fails()) {
-                                /*
-                                    insert photo to folder
-                                */
-                            $image = $request->file('avatar');
-
-
-                            if (empty($image)) {                                
-                                /*
-                                    insert photo to database
-                                */
+                                
                                 $this->user = User::find($this->id);
                                 $this->user->name = $this->name;
                                 $this->user->email = $this->email;
-                                $this->user->password = (empty($this->password)) ? $this->user->password : Hash::make($this->password);
-                                $this->user->role = $this->role;
                                 $this->user->save();
 
-                            }else {
-                                $avatarName = time().$image->getClientOriginalName();
-                                $image->move(public_path('images'),$avatarName);
-                                $this->user = User::find($this->id);
-                                $this->user->name = $this->name;
-                                $this->user->email = $this->email;
-                                $this->user->password = (empty($this->password)) ? $this->user->password : Hash::make($this->password);
-                                $this->user->role = $this->role;
-                                $this->user->avatar = $avatarName;
-                                $this->user->save();
-                            }
+
 
                     return response()->json(['success'=>$this->user]);   
                     
                     }else {
 
-                    return response()->json(['success'=>$validator->messages()]);         
+                    return response()->json(['error'=>$validator->messages()]);         
 
                     }
             }
