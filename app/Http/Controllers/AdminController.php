@@ -49,6 +49,10 @@ class AdminController extends BaseController
 		This method return session
 	*/
 
+	/**
+    * @param  string email,string password
+    * @return admin index view
+    */
     public function index(Request $request) {
 
     	// Login block
@@ -85,7 +89,10 @@ class AdminController extends BaseController
         return view('adminIndex');
     }
 
-
+	/** 
+    * @param  string name,string password,string role,string email
+    * @return redireact when user added
+    */
     public function addUser(Request $request) {
 
     	if ($request->isMethod('post')) {
@@ -135,11 +142,20 @@ class AdminController extends BaseController
 			}
         }
 
+	/** 
+    * @param  int id
+    * @return redireact when user deleted
+    */
     public function delete($id) {
     	User::where('id',$id)->delete();
     	return redirect('/admin/');
     }
 
+
+	/** 
+    * @param  string name,string password,string role,string email,int id 
+    * @return redireact when user updated
+    */
     public function update(Request $request) {
 
     	if ($request->isMethod('post')) {
@@ -199,7 +215,10 @@ class AdminController extends BaseController
 
 
 
-
+	/** 
+    * @param  string title,string describe,string price
+    * @return redireact when product added
+    */
     public function addProduct(Request $request) {
 
     	if ($request->isMethod('post')) {
@@ -232,23 +251,38 @@ class AdminController extends BaseController
 			}
         }
 
-
+	/** 
+    * @param int id
+    * @return redireact when product deleted
+    */
     public function deleteProduct($id) {
     	Product::where('id',$id)->delete();
     	return redirect('/admin/');
     }
 
+	/** 
+    * @param  int id
+    * @return redireact when comment deleted
+    */
     public function DelComment($id) {
     	Comments::where('id',$id)->delete();
     	return redirect('/admin/');
     }
 
+	/** 
+    * @param  int id
+    * @return redireact when cart deleted
+    */
     public function delCart($id) {
     	Cart::where('id',$id)->delete();
     	return redirect('/admin/');
     }
 
 
+	/** 
+    * @param  string title,string describe,string price,int id
+    * @return redireact when product updated
+    */
     public function updateProduct(Request $request) {
 
     	if ($request->isMethod('post')) {
@@ -283,7 +317,10 @@ class AdminController extends BaseController
 			}
     }  	
 
-
+	/** 
+    * @param  int id
+    * @return redireact when photo added to product
+    */
     public function uploadPhoto(Request $request) {
     	if ($request->isMethod('post')) {
     		$this->idprod = $request->input('id');
@@ -313,11 +350,20 @@ class AdminController extends BaseController
     	}
     }
 
+	/** 
+    * @param  int id
+    * @return redireact when photo deleted
+    */
     public function DelPhoto($id) {
     	Photos::where('id',$id)->delete();
     	return redirect('/admin/');
     }
 
+
+	/** 
+    * @param  string title,string describe,string raiting,int id,int iduser
+    * @return redireact when comment added
+    */
     public function addComment(Request $request) {
 
     	if ($request->isMethod('post')) {
@@ -358,6 +404,12 @@ class AdminController extends BaseController
 			}
         }
 
+
+
+	/** 
+    * @param  int id,int iduser
+    * @return redireact when product added to cart
+    */
     public function addTocart(Request $request) {
     	if ($request->isMethod('post')) {
     		$this->idproduct = $request->input('id');

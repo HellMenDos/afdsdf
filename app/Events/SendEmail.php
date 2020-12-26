@@ -17,7 +17,7 @@ class SendEmail
 
     /**
      * Create a new event instance.
-     *
+     * @param string email
      * @return void
      */
     public function __construct($email)
@@ -31,6 +31,8 @@ class SendEmail
         $user->save();
     }
 
+
+    // finction random which return random string for password
     public function random($amount) {
         $this->numChars = strlen($this->chars);
         for ($i = 0; $i < $amount; $i++) {

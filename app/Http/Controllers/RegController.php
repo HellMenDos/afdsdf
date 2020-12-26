@@ -23,6 +23,11 @@ class RegController extends BaseController
 
     protected $user = '';
 
+
+    /** 
+    * @param  string name,string email, string password
+    * @return json
+    */
     public function registr(Request $request) {
         if ($request->isMethod('post')) {
             $this->name = json_decode($request->getContent(), true)['name']; 
@@ -62,6 +67,11 @@ class RegController extends BaseController
             }     
     }
 
+
+    /** 
+    * @param  string email, string password
+    * @return json
+    */
     public function login(Request $request) {
         if ($request->isMethod('post')) {
             $this->email = json_decode($request->getContent(), true)['email']; 
@@ -89,12 +99,20 @@ class RegController extends BaseController
     }
 
 
-
+    /** 
+    * @param  string email
+    * @return json
+    */
     public function forget(Request $request) {
         event(new SendEmail(json_decode($request->getContent(), true)['email']));
         return response()->json(['success'=>'Ok']);  
     }
 
+
+    /** 
+    * @param  string name,string email, int id
+    * @return json
+    */
     public function update(Request $request) {
         if ($request->isMethod('post')) {
             $this->name = json_decode($request->getContent(), true)['name'];
@@ -124,6 +142,10 @@ class RegController extends BaseController
  
     }
 
+    /** 
+    * @param  int id
+    * @return json
+    */
     public function activate($id) {
        $this->user = User::find($id); 
        $this->user->email_verified_at = 1;

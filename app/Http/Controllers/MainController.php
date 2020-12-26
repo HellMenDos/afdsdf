@@ -18,28 +18,52 @@ class MainController extends BaseController
     public $idproduct;
     public $iduser;
     public $amount;
+    public $allroduct;
+    public $product;
+    public $cart;
 
+
+    /** 
+    * @param  string title
+    * @return json
+    */
     public function ProductsByTitle($title,Request $request) {
     	$this->allusers = Product::with(['photos'])->where('title','like','%'.$title.'%')->get();
         return response()->json($this->allusers); 
     }
 
+    /** 
+    * @param  
+    * @return json
+    */
     public function AllProducts(Request $request) {
-        $this->allusers = Product::with(['photos'])->get();
-        return response()->json($this->allusers); 
+        $this->allroduct = Product::with(['photos'])->get();
+        return response()->json($this->allroduct); 
     }
 
+    /** 
+    * @param  int id
+    * @return json
+    */
     public function getProduct($id) {
-        $this->user = Product::with(['photos','comments'])->find($id);
-        return response()->json($this->user);
+        $this->product = Product::with(['photos','comments'])->find($id);
+        return response()->json($this->product);
     }
 
+    /** 
+    * @param  int id
+    * @return json
+    */
     public function getUser($id) {
         $this->user = User::find($id);
         return response()->json($this->user);
     }
  
  
+     /** 
+    * @param  int id,int iduser,int amount
+    * @return json
+    */
     public function addTocart(Request $request) {
         if ($request->isMethod('post')) {
             $this->idproduct = json_decode($request->getContent(), true)['id'];
@@ -57,9 +81,14 @@ class MainController extends BaseController
             }
 
     }
+    
 
+    /** 
+    * @param  int id
+    * @return json
+    */
     public function PrdoductCart($id,Request $request) {
-        $this->user = Cart::with(['product'])->where('id_user',$id)->get();
-        return response()->json($this->user);
+        $this->cart = Cart::with(['product'])->where('id_user',$id)->get();
+        return response()->json($this->cart);
     }
 }
